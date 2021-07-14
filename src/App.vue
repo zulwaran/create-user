@@ -20,19 +20,18 @@ export default {
 };
 </script>
 
-<style lang="scss">
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-#app {
-  font-size: 16px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-image: url("https://i.pinimg.com/736x/1f/32/de/1f32de75ae0a1ac218a902f6f361a6d7.jpg");
-}
+<style lang="sass">
+*
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+#app
+  font-size: 16px
+  font-family: Avenir, Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  text-align: center
+  color: #2c3e50
+  background-image: url("https://i.pinimg.com/736x/1f/32/de/1f32de75ae0a1ac218a902f6f361a6d7.jpg")
 </style>
