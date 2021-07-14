@@ -4,28 +4,46 @@
       <h3>Личные данные</h3>
       <div class="field">
         <label>Фамилия*</label>
-        <input v-model="formPersonal.surname" type="text" />
+        <input v-model.trim="formPersonal.surname" type="text" />
+        <small
+          v-if="
+            $v.formPersonal.surname.$dirty && !$v.formPersonal.surname.required
+          "
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
         <label>Имя*</label>
-        <input v-model="formPersonal.name" type="text" />
+        <input v-model.trim="formPersonal.name" type="text" />
+        <small
+          v-if="$v.formPersonal.name.$dirty && !$v.formPersonal.name.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
         <label>Отчество</label>
-        <input v-model="formPersonal.midname" type="text" />
+        <input v-model.trim="formPersonal.midname" type="text" />
       </div>
       <div class="field">
         <label>Дата рождения*</label>
-        <input v-model="formPersonal.born" type="date" />
+        <input v-model.trim="formPersonal.born" type="date" />
+        <small
+          v-if="$v.formPersonal.born.$dirty && !$v.formPersonal.born.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
         <label>Номер телефона*</label>
-        <input v-model="formPersonal.phone" type="tel" />
+        <input v-model.trim="formPersonal.phone" type="number" />
+        <small
+          v-if="$v.formPersonal.phone.$dirty && !$v.formPersonal.phone.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
         <label
           >Мужчина<input
-            v-model="formPersonal.gender"
+            v-model.trim="formPersonal.gender"
             type="radio"
             name="gender"
             checked
@@ -33,7 +51,7 @@
         /></label>
         <label
           >Женщина<input
-            v-model="formPersonal.gender"
+            v-model.trim="formPersonal.gender"
             type="radio"
             name="gender"
             value="Female"
@@ -41,11 +59,15 @@
       </div>
       <div class="field">
         <label>Группа клиентов* </label>
-        <select v-model="formPersonal.group" multiple>
-          <option>VIP</option>
-          <option>Проблемные</option>
-          <option>ОМС</option>
+        <select v-model.trim="formPersonal.group" multiple>
+          <option v-for="elem in groupItems" :key="elem.index">
+            {{ elem }}
+          </option>
         </select>
+        <small
+          v-if="$v.formPersonal.group.$dirty && !$v.formPersonal.group.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
         <label> Лечащий врач </label>
@@ -58,7 +80,7 @@
       <div class="field">
         <label
           >Не отправлять СМС
-          <input v-model="formPersonal.checkbox" type="checkbox"
+          <input v-model.trim="formPersonal.checkbox" type="checkbox"
         /></label>
       </div>
     </div>
@@ -67,51 +89,90 @@
       <h3>Адрес</h3>
       <div class="field">
         <label>Индекс</label>
-        <input type="text" />
+        <input v-model.trim="formAdress.index" type="number" />
       </div>
       <div class="field">
-        <label>Страна</label><input formAdress.country type="text" />
+        <label>Страна</label
+        ><input v-model.trim="formAdress.country" type="text" />
       </div>
       <div class="field">
-        <label>Область</label><input formAdress.region type="text" />
+        <label>Область</label
+        ><input v-model.trim="formAdress.region" type="text" />
       </div>
       <div class="field">
-        <label>Город*</label><input formAdress.town type="text" />
+        <label>Город*</label
+        ><input v-model.trim="formAdress.town" type="text" />
+        <small v-if="$v.formAdress.town.$dirty && !$v.formAdress.town.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
       <div class="field">
-        <label>Улица</label><input formAdress.street type="text" />
+        <label>Улица</label
+        ><input v-model.trim="formAdress.street" type="text" />
       </div>
       <div class="field">
-        <label>Дом</label><input formAdress.house type="text" />
+        <label>Дом</label
+        ><input v-model.trim="formAdress.house" type="number" />
       </div>
     </div>
 
     <div class="create-user__document">
       <h3>Документ удостоверяющий личность</h3>
       <div class="field">
-        <label>Тип документа </label>
-        <select>
-          <option>Паспорт</option>
-          <option>Свидетельство о рождении</option>
-          <option>Вод. удостоверение</option>
+        <label>Тип документа*</label>
+        <select v-model.trim="formDocument.type">
+          <option v-for="elem in typeItems" :key="elem.index">
+            {{ elem }}
+          </option>
         </select>
+        <small
+          v-if="$v.formDocument.type.$dirty && !$v.formDocument.type.required"
+          >Поле обязательное для заполнения</small
+        >
       </div>
-      <div class="field"><label>Серия</label><input type="text" /></div>
-      <div class="field"><label>Номер</label><input type="text" /></div>
+      <div class="field">
+        <label>Серия</label
+        ><input v-model.trim="formDocument.series" type="number" />
+      </div>
+      <div class="field">
+        <label>Номер</label
+        ><input v-model.trim="formDocument.number" type="number" />
+      </div>
       <div class="field">
         <label>Кем выдан</label>
-        <textarea cols="30" rows="5"></textarea>
+        <textarea
+          v-model.trim="formDocument.whoIssued"
+          cols="30"
+          rows="5"
+        ></textarea>
       </div>
-      <div class="field"><label>Дата выдачи*</label><input type="date" /></div>
+      <div class="field">
+        <label>Дата выдачи*</label
+        ><input v-model.trim="formDocument.dateIssued" type="date" />
+        <small
+          v-if="
+            $v.formDocument.dateIssued.$dirty &&
+            !$v.formDocument.dateIssued.required
+          "
+          >Поле обязательное для заполнения</small
+        >
+      </div>
     </div>
     <button type="submit">Сохранить</button>
   </form>
 </template>
 
 <script>
+import {
+  required,
+  /*   maxLength,
+  minLength, */
+} from "../../node_modules/vuelidate/lib/validators";
 export default {
   data() {
     return {
+      groupItems: ["VIP", "Проблемные", "ОМС"],
+      typeItems: ["Паспорт", "Свидетельство о рождении", "Вод. удостоверение"],
       formPersonal: {
         name: "",
         surname: "",
@@ -124,14 +185,15 @@ export default {
         checkbox: false,
       },
       formAdress: {
+        index: null,
         country: "",
         region: "",
         town: "",
-        steet: "",
-        home: "",
+        street: "",
+        house: null,
       },
       formDocument: {
-        type: "",
+        type: null,
         series: null,
         number: null,
         whoIssued: "",
@@ -139,8 +201,29 @@ export default {
       },
     };
   },
+  validations: {
+    formPersonal: {
+      name: { required },
+      surname: { required },
+      born: { required },
+      phone: { required },
+      group: { required },
+    },
+    formAdress: {
+      town: { required },
+    },
+    formDocument: {
+      type: { required },
+      dateIssued: { required },
+    },
+  },
   methods: {
     createUser() {
+      if (this.$v.$invalid) {
+        console.log("Validate ERROR!");
+        this.$v.$touch();
+        return;
+      }
       console.log(this.formPersonal, this.formAdress, this.formDocument);
     },
   },
@@ -209,6 +292,14 @@ input[type="checkbox"]
     width: auto
     margin-left: 10px
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+input[type=number]
+    -moz-appearance: textfield
+
 h3
     padding: 5px 10px
 
@@ -219,4 +310,12 @@ button
     outline: none
     background-color: rgb(12, 24, 71)
     border-color: rgb(12, 24, 71)
+
+small
+    display: block
+    font-size: 12px
+    color: red
+    text-align-last: left
+    margin-left: 60px
+    margin-top: 5px
 </style>
