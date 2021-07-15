@@ -34,10 +34,16 @@
       </div>
       <div class="field">
         <label>Номер телефона*</label>
-        <input v-model.trim="formPersonal.phone" type="number" />
+        <input v-model="formPersonal.phone" type="tel" v-phone />
         <small
           v-if="$v.formPersonal.phone.$dirty && !$v.formPersonal.phone.required"
           >Поле обязательное для заполнения</small
+        >
+        <small
+          v-else-if="
+            $v.formPersonal.phone.$dirty && !$v.formPersonal.phone.minLength
+          "
+          >Неверный формат телефона</small
         >
       </div>
       <div class="field">
@@ -165,8 +171,7 @@
 <script>
 import {
   required,
-  /*   maxLength,
-  minLength, */
+  minLength,
 } from "../../node_modules/vuelidate/lib/validators";
 export default {
   data() {
@@ -206,7 +211,7 @@ export default {
       name: { required },
       surname: { required },
       born: { required },
-      phone: { required },
+      phone: { required, minLength: minLength(15) },
       group: { required },
     },
     formAdress: {
