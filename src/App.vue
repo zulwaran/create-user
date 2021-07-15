@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="{ backgroundImage: `url(${BG})` }">
-    <CreateUser />
+    <CreateUser /> 
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   },
   data() {
     return {
-      BG,
+      BG
     };
   },
 };
