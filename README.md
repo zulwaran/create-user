@@ -10,6 +10,7 @@
 
 # Запуск
 • Локально при помощи команды npm run serve
+
 • Рабочая версия доступна на github-pages по ссылке - https://zulwaran.github.io/create-user/
 
 # Описание:
